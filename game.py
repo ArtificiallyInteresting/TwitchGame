@@ -1,12 +1,12 @@
 from constants import *
 from randomPlayer import *
-
+from getKills import *
 class Game:
 
     def __init__(self, player1=None, player2=None):
         self.player1Turn = True
         if player1 == None:
-            player1 = RandomPlayer()
+            player1 = GetKills()
         if player2 == None:
             player2 = RandomPlayer()
         self.player1 = player1
@@ -99,5 +99,18 @@ class Game:
         if player1Space and self.player1Turn:
             return True
         if player2Space and not self.player1Turn:
+            return True
+        return False
+
+    def isOpponent(self, space):
+        player1Space = False
+        player2Space = False
+        if space in [PIECES.K1, PIECES.P1, PIECES.R1, PIECES.S1]:
+            player1Space = True
+        if space in [PIECES.K2, PIECES.P2, PIECES.R2, PIECES.S2]:
+            player2Space = True
+        if player1Space and not self.player1Turn:
+            return True
+        if player2Space and self.player1Turn:
             return True
         return False
