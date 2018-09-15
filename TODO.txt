@@ -1,0 +1,8 @@
+Come up with game
+Set up a 7x7 (or whatever) board
+Draw pieces
+Create players, have the game call players for actions
+
+tentative idea:
+Game is RPS. 2 of each piece, different movement.
+Each player gets a "mother nature". Only vulnerable when not next to an enemy. Doesn't kill anything
