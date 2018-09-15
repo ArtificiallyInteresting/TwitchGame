@@ -1,6 +1,7 @@
 import game
 import drawBoard
 import time
+from constants import *
 
 if __name__ == "__main__":
     instance = game.Game()
@@ -9,6 +10,13 @@ if __name__ == "__main__":
     iteration = 0
     while True:
         iteration += 1
+        if DEBUG:
+            print("Iteration: " + str(iteration))
         instance.processTurn()
-        time.sleep(1)
+        if (instance.winner() != None):
+            print("WINNER: " + str(instance.winner()))
+            exit()
+        now = time.time()
         graphics.draw(instance.getBoard())
+        while (now + 1 > time.time()):
+            graphics.draw(instance.getBoard())

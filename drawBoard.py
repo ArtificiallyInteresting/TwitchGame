@@ -10,8 +10,8 @@ class DrawBoard:
         pygame.font.init()
         self.width = width
         self.height = height
-        self.imageWidth = 200
-        self.imageHeight = 200
+        self.imageWidth = 100
+        self.imageHeight = 100
         self.width = width
         self.height = height
         self.screen = pygame.display.set_mode((width * self.imageWidth, height * self.imageHeight))
@@ -33,7 +33,8 @@ class DrawBoard:
         images = self.getImages(board)
         for row in range(len(images)):
             for col in range(len(images[row])):
-                self.screen.blit(images[row][col], (col*self.imageWidth, row * self.imageHeight))
+                if images[row][col] is not None:
+                    self.screen.blit(images[row][col], (col*self.imageWidth, row * self.imageHeight))
         pygame.display.flip()
 
     def drawLines(self):
@@ -63,6 +64,8 @@ class DrawBoard:
                     imagesRow.append(self.images['S2'])
                 elif item == PIECES.K2:
                     imagesRow.append(self.images['K2'])
+                else:
+                    imagesRow.append(None)
             images.append(imagesRow)
         return images
 
