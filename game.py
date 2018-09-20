@@ -1,6 +1,7 @@
 from constants import *
 from randomPlayer import *
 from getKills import *
+from copy import deepcopy
 class Game:
 
     def __init__(self, player1=None, player2=None):
@@ -50,9 +51,21 @@ class Game:
         oldPos, newPos = turn
         if DEBUG:
             print("Move from " + str(oldPos[0]) + "," + str(oldPos[1]) + " to " + str(newPos[0]) + "," + str(newPos[1]))
-        self.board[newPos[0]][newPos[1]] = self.board[oldPos[0]][oldPos[1]] #TODO validate this
-        self.board[oldPos[0]][oldPos[1]] = None
-        self.player1Turn = not self.player1Turn
+        self.executeMove(oldPos, newPos)
+
+    def executeMove(self, oldPos, newPos, board=None):
+        if board == None:
+            board = self.board
+            self.player1Turn = not self.player1Turn #TODO should this be handled here
+        board[newPos[0]][newPos[1]] = board[oldPos[0]][oldPos[1]] #TODO validate this
+        board[oldPos[0]][oldPos[1]] = None
+        return board
+
+    #returns board not game
+    def predictTurn(self, oldPos, newPos):
+        newGame = deepcopy(self.board)
+        return self.executeMove(oldPos, newPos, newGame)
+
 
     def getPossibleMoves(self):
         moves = []
@@ -90,12 +103,8 @@ class Game:
         return True
 
     def isCurrentPlayer(self, space):
-        player1Space = False
-        player2Space = False
-        if space in [PIECES.K1, PIECES.P1, PIECES.R1, PIECES.S1]:
-            player1Space = True
-        if space in [PIECES.K2, PIECES.P2, PIECES.R2, PIECES.S2]:
-            player2Space = True
+        player1Space = isPlayer1Piece(space)
+        player2Space = isPlayer2Piece(space)
         if player1Space and self.player1Turn:
             return True
         if player2Space and not self.player1Turn:
@@ -114,3 +123,7 @@ class Game:
         if player2Space and self.player1Turn:
             return True
         return False
+def isPlayer1Piece(space):
+    return space in [PIECES.K1, PIECES.P1, PIECES.R1, PIECES.S1]
+def isPlayer2Piece(space):
+    return space in [PIECES.K2, PIECES.P2, PIECES.R2, PIECES.S2]

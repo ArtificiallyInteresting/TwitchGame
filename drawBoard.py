@@ -6,6 +6,8 @@ import os
 
 class DrawBoard:
     def __init__(self, width=7, height=7):
+        position = (2400,200)
+        os.environ['SDL_VIDEO_WINDOW_POS'] = str(position[0]) + "," + str(position[1])
         pygame.init()
         pygame.font.init()
         self.width = width
@@ -36,6 +38,9 @@ class DrawBoard:
                 if images[row][col] is not None:
                     self.screen.blit(images[row][col], (col*self.imageWidth, row * self.imageHeight))
         pygame.display.flip()
+        for event in pygame.event.get():
+            if event.type==QUIT:
+                exit()
 
     def drawLines(self):
         for x in range(self.width):

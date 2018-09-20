@@ -1,8 +1,5 @@
-Come up with game
-Set up a 7x7 (or whatever) board
-Draw pieces
-Create players, have the game call players for actions
-
-tentative idea:
-Game is RPS. 2 of each piece, different movement.
-Each player gets a "mother nature". Only vulnerable when not next to an enemy. Doesn't kill anything
+Write up how the game works
+Make minimax
+Make a scoring agent
+Seperate agents to another folder
+ScoreBased beat ScoreBased 91 times out of 100 (it must not like being second player)

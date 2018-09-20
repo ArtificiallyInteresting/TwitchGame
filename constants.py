@@ -10,4 +10,4 @@ class PIECES(Enum):
     S2 = "S2"
     K2 = "K2"
 
-DEBUG = True
+DEBUG = False
